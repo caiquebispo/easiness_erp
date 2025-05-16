@@ -3,11 +3,10 @@
 namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +24,10 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|min:6|max:16',
+            'name' => 'required|min:2|max:256',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|max:16',
+            'company_id' => 'int'
         ];
     }
     protected function failedValidation(Validator $validator): array

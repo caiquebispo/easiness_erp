@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Mockery\Exception;
 
 class AuthService
 {
@@ -12,9 +15,10 @@ class AuthService
      */
     public function attempt(string $email, string $password): JsonResponse
     {
-        $user = User::where('email', $email)->first();
 
-        if (!$user || !Hash::check($password, $user->password)) {
+       $user = User::where('email', $email)->first();
+
+        if (! $user || ! Hash::check($password, $user->password)) {
 
             return response()->json([
                 'success'=> false,
@@ -26,7 +30,6 @@ class AuthService
         $token = $user->createToken('api_token')->plainTextToken;
 
         return response()->json([
-
             'success' => true,
             'message' => 'Login successfully.',
             'data' => [
@@ -36,14 +39,22 @@ class AuthService
             ],
         ]);
     }
-    public function logout(): JsonResponse
+    public function logout()
     {
-        auth()->user()->tokens()->delete();
+        try{
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Logout successfully.',
-            'data' => []
-        ]);
+            Auth::user()->tokens()->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Logout successfully.',
+                'data' => []
+            ]);
+        }catch(\Exception $e){
+
+            throw new Exception('User not authenticated.', 524);
+        }
+
+
     }
 }

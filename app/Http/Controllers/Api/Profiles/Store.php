@@ -1,30 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers\Api\Profiles;
 
-use App\DTOs\UserDto;
+use App\DTOs\ProfileDto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\RegisterRequest;
-use App\Services\UserService;
+use App\Services\ProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class Register extends Controller
+class Store extends Controller
 {
     public function __construct(
-        protected  UserService $userService
+        public ProfileService $profileService
     )
     {}
-    public function __invoke(RegisterRequest $request)
+
+    public function __invoke(Request $request): JsonResponse
     {
+
         try {
 
-            $response = $this->userService->store(new UserDto(...$request->validated()));
+            $profile = $this->profileService->store(new ProfileDto(...$request->all()));
 
             return response()->json([
                 'success' => true,
-                'message' => 'Registered successfully',
-                'data' => $response
+                'message' => 'Profiles Created Successfully.',
+                'data' => $profile
             ],200);
 
         }catch (\Exception $e){
@@ -35,6 +36,5 @@ class Register extends Controller
                 'data' => []
             ],$e->getCode());
         }
-
     }
 }
