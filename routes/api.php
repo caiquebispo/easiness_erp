@@ -8,6 +8,7 @@ Route::prefix('v1/erp')->group(function(){
 
     require_once('api/profiles/routes.php');
     require_once('api/permissions/routes.php');
+    require_once('api/users/routes.php');
 });
 
 Route::prefix('v1/auth')->group(function(){
