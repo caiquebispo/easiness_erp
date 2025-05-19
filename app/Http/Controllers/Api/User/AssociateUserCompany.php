@@ -20,7 +20,7 @@ class AssociateUserCompany extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully',
+                'message' => 'The user and the company were successfully associated',
                 'data' => $response
             ], 202);
 
