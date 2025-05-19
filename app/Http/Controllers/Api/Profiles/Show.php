@@ -18,7 +18,7 @@ class Show extends Controller
     {
         try {
 
-            $profile = $this->profileService->show($id);
+            $profile = $this->profileService->get($id);
 
             return response()->json([
                 'success' => true,

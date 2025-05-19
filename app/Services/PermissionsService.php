@@ -28,7 +28,7 @@ class PermissionsService
            throw new Exception('Internal error in create an new permission, please verify with our support for more details', 500);
        }
    }
-   public function show(int $permission_id): Permission|\Exception
+   public function get(int $permission_id): Permission|\Exception
    {
        try {
 
@@ -41,7 +41,7 @@ class PermissionsService
    }
    public function update(int $permission_id, PermissionsDto $permissionsDto): Permission|\Exception
    {
-       $permission = $this->show($permission_id);
+       $permission = $this->get($permission_id);
 
        try {
 
@@ -55,7 +55,7 @@ class PermissionsService
    }
    public function delete(int $permission_id):bool|\Exception
    {
-       $permission = $this->show($permission_id);
+       $permission = $this->get($permission_id);
 
        try {
 
@@ -68,8 +68,8 @@ class PermissionsService
    }
     public function toggle(int $permission_id, int $profile_id):array|\Exception
     {
-        $permission = $this->show($permission_id);
-        $profile = $this->profileService->show($profile_id);
+        $permission = $this->get($permission_id);
+        $profile = $this->profileService->get($profile_id);
 
         try {
 

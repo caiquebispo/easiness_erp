@@ -17,7 +17,7 @@ class Show extends Controller
     {
         try {
 
-            $permission = $this->permissionsService->show($id);
+            $permission = $this->permissionsService->get($id);
 
             return  response()->json([
                 'success' => true,

@@ -15,7 +15,7 @@ class UserService
             throw new \Exception('Internal error in create an new user, please verify with our team support more details:',500);
         }
     }
-    public function show(int $user_id): User|\Exception
+    public function get(int $user_id): User|\Exception
     {
         try {
             return  User::findOrFail($user_id);
@@ -25,8 +25,8 @@ class UserService
     }
     public function toggle(int $user_id, $company_id):array|\Exception
     {
-        $user = $this->show($user_id);
-        $company = (new CompanyService($this))->show($company_id);
+        $user = $this->get($user_id);
+        $company = (new CompanyService($this))->get($company_id);
 
         try {
             return $user->companies()->toggle($company);
@@ -36,15 +36,15 @@ class UserService
     }
     public function associate(int $user_id, $company_id):User|\Exception
     {
-        $user = $this->show($user_id);
-        $company = (new CompanyService($this))->show($company_id);
+        $user = $this->get($user_id);
+        $company = (new CompanyService($this))->get($company_id);
 
         try {
              $user->company()->associate($company)->save();
              return $user;
 
         }catch (\Exception $e){
-            throw new \Exception('Internal error in method toggle: '.$e->getMessage(),500);
+            throw new \Exception('Internal error in method toggle: ',500);
         }
     }
 }

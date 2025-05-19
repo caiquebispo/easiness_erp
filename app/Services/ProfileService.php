@@ -15,7 +15,7 @@ class ProfileService
     {
         return Profile::all();
     }
-    public function show(int $profile_id): Profile|\Exception
+    public function get(int $profile_id): Profile|\Exception
     {
         try {
             return  Profile::findOrFail($profile_id);
@@ -38,7 +38,7 @@ class ProfileService
     }
     public function update(int $profile_id, ProfileDto $profileDto):Profile|\Exception
     {
-        $profile = $this->show($profile_id);
+        $profile = $this->get($profile_id);
 
         try {
 
@@ -53,7 +53,7 @@ class ProfileService
     }
     public function delete(int $profile_id): bool|\Exception
     {
-        $profile = $this->show($profile_id);
+        $profile = $this->get($profile_id);
 
         try {
             return  $profile->delete();
@@ -65,8 +65,8 @@ class ProfileService
     }
     public function toggle(int $profile_id, int $user_id):array|\Exception
     {
-        $profile = $this->show($profile_id);
-        $user = $this->userService->show($user_id);
+        $profile = $this->get($profile_id);
+        $user = $this->userService->get($user_id);
 
         try {
 

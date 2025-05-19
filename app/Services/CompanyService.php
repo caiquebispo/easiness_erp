@@ -21,7 +21,7 @@ class CompanyService
             throw new Exception('Internal error, please verify with our teams for more details: '.$e->getMessage(),500);
         }
     }
-    public function show(int $company_id): Company
+    public function get(int $company_id): Company
     {
         try {
             return Company::findOrFail($company_id);
@@ -31,8 +31,8 @@ class CompanyService
     }
     public function toggle(int $company_id, int $user_id):array|\Exception
     {
-        $company = $this->show($company_id);
-        $user = $this->userService->show($user_id);
+        $company = $this->get($company_id);
+        $user = $this->userService->get($user_id);
 
         try {
             return $company->users()->toggle($user);
