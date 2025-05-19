@@ -14,8 +14,18 @@ class UserService
 
         }catch (\Exception $e){
 
-            throw new \Exception('Internal error, please verify with our team support more details: '.$e->getMessage(), 500);
+            throw new \Exception('Internal error in create an new user, please verify with our team support more details: ',500);
 
+        }
+    }
+    public function show(int $user_id): User|\Exception
+    {
+        try {
+            return  User::findOrFail($user_id);
+
+        }catch (\Exception $e){
+
+            throw new \Exception('User Notfound', 404);
         }
     }
 }

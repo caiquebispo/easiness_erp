@@ -7,6 +7,10 @@ use App\Models\Profile;
 
 class ProfileService
 {
+    public function __construct(
+        protected UserService $userService
+    )
+    {}
     public function all()
     {
         return Profile::all();
@@ -17,7 +21,7 @@ class ProfileService
             return  Profile::findOrFail($profile_id);
 
         }catch (\Exception $e){
-            throw new \Exception('Internal error please verify with our support for more information.', 500);
+            throw new \Exception('Profile Notfound', 404);
         }
     }
 
@@ -58,5 +62,20 @@ class ProfileService
 
             throw new \Exception('Internal error please verify with our support for more information.', 500);
         }
+    }
+    public function toggle(int $profile_id, int $user_id):bool|\Exception
+    {
+        $profile = $this->show($profile_id);
+        $user = $this->userService->show($user_id);
+
+        try {
+
+            $profile->user()->toggle($user->id);
+            return true;
+
+        }catch (\Exception $e){
+            throw new \Exception('Internal error in method toggle: '.$e->getMessage(),500);
+        }
+
     }
 }
