@@ -3,28 +3,24 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
-
 use App\Services\UserService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ToggleUserCompanies extends Controller
+class AssociateUserCompany extends Controller
 {
     public function __construct(
         protected UserService $userService
     )
     {}
-
     public function __invoke(Request $request)
     {
-
         try {
 
-            $response  = $this->userService->toggle($request->user_id, $request->company_id);
+            $response = $this->userService->associate($request->user_id, $request->company_id);
 
             return response()->json([
                 'success' => true,
-                'message' => 'The relationship between the user and the company was successfully established.',
+                'message' => 'Successfully',
                 'data' => $response
             ], 202);
 
@@ -36,5 +32,6 @@ class ToggleUserCompanies extends Controller
                 'data' => []
             ], $e->getCode());
         }
+
     }
 }

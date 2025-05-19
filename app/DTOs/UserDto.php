@@ -10,7 +10,7 @@ final class UserDto
         protected string $name,
         protected string $email,
         protected string $password,
-        protected string $company_id,
+        protected ?string $company_id = null,
     )
     {}
     public function withPassword(): UserDto
