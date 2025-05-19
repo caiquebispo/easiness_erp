@@ -63,18 +63,17 @@ class ProfileService
             throw new \Exception('Internal error please verify with our support for more information.', 500);
         }
     }
-    public function toggle(int $profile_id, int $user_id):bool|\Exception
+    public function toggle(int $profile_id, int $user_id):array|\Exception
     {
         $profile = $this->show($profile_id);
         $user = $this->userService->show($user_id);
 
         try {
 
-            $profile->users()->toggle($user->id);
-            return true;
+            return $profile->users()->toggle($user->id);
 
         }catch (\Exception $e){
-            throw new \Exception('Internal error in method toggle: '.$e->getMessage(),500);
+            throw new \Exception('Internal error in method toggle:',500);
         }
 
     }

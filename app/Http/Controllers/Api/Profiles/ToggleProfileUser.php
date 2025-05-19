@@ -18,12 +18,12 @@ class ToggleProfileUser extends Controller
     {
         try {
 
-            $this->profileService->toggle($request->profile_id,$request->user_id);
+            $response  = $this->profileService->toggle($request->profile_id,$request->user_id);
 
             return response()->json([
                 'success'=> true,
                 'message' => 'Relationship successfully in between user and the profile',
-                'data' => []
+                'data' =>  $response
             ], 202);
 
         }catch (\Exception $e){

@@ -66,18 +66,18 @@ class PermissionsService
            throw new Exception('Internal error in delete an permission, please verify with our support for more details', 500);
        }
    }
-    public function toggle(int $permission_id, int $profile_id):bool|\Exception
+    public function toggle(int $permission_id, int $profile_id):array|\Exception
     {
         $permission = $this->show($permission_id);
         $profile = $this->profileService->show($profile_id);
-
+        
         try {
 
-            $permission->profiles()->toggle($profile->id);
-            return true;
+            return $permission->profiles()->toggle($profile->id);
 
         }catch (\Exception $e){
-            throw new \Exception('Internal error in method toggle: '.$e->getMessage(),500);
+
+            throw new \Exception('Internal error in method toggle:',500);
         }
 
     }

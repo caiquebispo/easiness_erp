@@ -17,12 +17,12 @@ class TogglePermissionProfile extends Controller
     {
         try {
 
-            $this->permissionsService->toggle($request->permission_id,$request->profile_id);
+            $response = $this->permissionsService->toggle($request->permission_id,$request->profile_id);
 
             return response()->json([
                 'success'=> true,
                 'message' => 'Relationship successfully in between permission and the profile',
-                'data' => []
+                'data' => $response
             ], 202);
 
         }catch (\Exception $e){
