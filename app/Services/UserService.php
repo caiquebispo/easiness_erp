@@ -11,21 +11,27 @@ class UserService
     {
         try{
             return User::create($user->withPassword()->withArray());
-
         }catch (\Exception $e){
-
             throw new \Exception('Internal error in create an new user, please verify with our team support more details: ',500);
-
         }
     }
     public function show(int $user_id): User|\Exception
     {
         try {
             return  User::findOrFail($user_id);
-
         }catch (\Exception $e){
-
             throw new \Exception('User Notfound', 404);
+        }
+    }
+    public function toggle(int $user_id, $company_id):array|\Exception
+    {
+        $user = $this->show($user_id);
+        $company = (new CompanyService($this))->show($company_id);
+
+        try {
+            return $user->companies()->toggle($company);
+        }catch (\Exception $e){
+            throw new \Exception('Internal error in method toggle',500);
         }
     }
 }

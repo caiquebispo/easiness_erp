@@ -70,10 +70,10 @@ class PermissionsService
     {
         $permission = $this->show($permission_id);
         $profile = $this->profileService->show($profile_id);
-        
+
         try {
 
-            return $permission->profiles()->toggle($profile->id);
+            return $permission->profiles()->toggle($profile);
 
         }catch (\Exception $e){
 

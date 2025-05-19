@@ -5,8 +5,7 @@ use App\Http\Controllers\Api\Auth\{Login, Logout, Register};
 
 Route::prefix('v1/erp')->group(function(){
 
-    Route::post('/companies', [Store::class, '__invoke']);
-
+    require_once('api/companies/routes.php');
     require_once('api/profiles/routes.php');
     require_once('api/permissions/routes.php');
     require_once('api/users/routes.php');

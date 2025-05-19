@@ -70,7 +70,7 @@ class ProfileService
 
         try {
 
-            return $profile->users()->toggle($user->id);
+            return $profile->users()->toggle($user);
 
         }catch (\Exception $e){
             throw new \Exception('Internal error in method toggle:',500);

@@ -11,7 +11,7 @@ class Company extends Model
     protected $guarded = [];
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'company_users');
     }
     public function user(): HasMany
     {
