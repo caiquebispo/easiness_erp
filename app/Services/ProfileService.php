@@ -70,7 +70,7 @@ class ProfileService
 
         try {
 
-            $profile->user()->toggle($user->id);
+            $profile->users()->toggle($user->id);
             return true;
 
         }catch (\Exception $e){

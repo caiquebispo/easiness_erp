@@ -9,7 +9,7 @@ class Profile extends Model
 {
     protected $guarded = [];
 
-    public function user(): BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'profile_users');
     }

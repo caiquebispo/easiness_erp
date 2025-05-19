@@ -9,6 +9,10 @@ use Mockery\Exception;
 
 class PermissionsService
 {
+    public function __construct(
+        protected ProfileService $profileService
+    )
+    {}
    public function all(): Collection
    {
        return Permission::all();
@@ -62,4 +66,19 @@ class PermissionsService
            throw new Exception('Internal error in delete an permission, please verify with our support for more details', 500);
        }
    }
+    public function toggle(int $permission_id, int $profile_id):bool|\Exception
+    {
+        $permission = $this->show($permission_id);
+        $profile = $this->profileService->show($profile_id);
+
+        try {
+
+            $permission->profiles()->toggle($profile->id);
+            return true;
+
+        }catch (\Exception $e){
+            throw new \Exception('Internal error in method toggle: '.$e->getMessage(),500);
+        }
+
+    }
 }
