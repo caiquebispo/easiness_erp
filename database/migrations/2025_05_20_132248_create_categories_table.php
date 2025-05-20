@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete('SET NULL');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

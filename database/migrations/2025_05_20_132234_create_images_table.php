@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->morphs('images');
+            $table->string('path')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
