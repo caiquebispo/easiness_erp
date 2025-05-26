@@ -24,7 +24,7 @@ class AssociateUserCompany extends Controller
                 'data' => $response
             ], 202);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return response()->json([
                 'success' => false,

@@ -39,7 +39,7 @@ class AuthService
             ],
         ]);
     }
-    public function logout()
+    public function logout(): JsonResponse
     {
         try{
 
@@ -50,7 +50,7 @@ class AuthService
                 'message' => 'Logout successfully.',
                 'data' => []
             ]);
-        }catch(\Exception $e){
+        }catch(\Throwable $e){
 
             throw new Exception('User not authenticated.', 524);
         }

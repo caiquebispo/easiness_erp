@@ -25,7 +25,7 @@ class All extends Controller
                 'data' => $profiles
             ],200);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return response()->json([
                 'success' => false,

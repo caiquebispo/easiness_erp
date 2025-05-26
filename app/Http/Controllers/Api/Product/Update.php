@@ -1,35 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\Product;
 
+use App\DTOs\ProductDto;
 use App\Http\Controllers\Controller;
-
-use App\Services\UserService;
+use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ToggleUserCompanies extends Controller
+class Update extends Controller
 {
     public function __construct(
-        protected UserService $userService
+        protected ProductService $productService
     )
     {}
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, int $id): JsonResponse
     {
-
         try {
-
-            $response  = $this->userService->toggle($request->user_id, $request->company_id);
+            $response = $this->productService->update($id, ProductDto::make(...$request->all()));
 
             return response()->json([
                 'success' => true,
-                'message' => 'The relationship between the user and the company was successfully established.',
+                'message' => 'Product updated successfully',
                 'data' => $response
-            ], 202);
+            ], 200);
 
-        }catch (\Throwable $e){
-
+        } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),

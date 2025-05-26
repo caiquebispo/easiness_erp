@@ -20,7 +20,7 @@ class ProfileService
         try {
             return  Profile::findOrFail($profile_id);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
             throw new \Exception('Profile Notfound', 404);
         }
     }
@@ -29,9 +29,9 @@ class ProfileService
     {
         try {
 
-            return  Profile::create($profileDto->withArray());
+            return  Profile::create($profileDto->toArray());
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             throw new \Exception('Internal error please verify with our support for more information.'.$e->getMessage(), 500);
         }
@@ -42,10 +42,10 @@ class ProfileService
 
         try {
 
-            $profile->update($profileDto->withArray());
+            $profile->update($profileDto->toArray());
             return  $profile;
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             throw new \Exception('Internal error please verify with our support for more information.', 500);
         }
@@ -58,7 +58,7 @@ class ProfileService
         try {
             return  $profile->delete();
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             throw new \Exception('Internal error please verify with our support for more information.', 500);
         }
@@ -72,7 +72,7 @@ class ProfileService
 
             return $profile->users()->toggle($user);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
             throw new \Exception('Internal error in method toggle:',500);
         }
 

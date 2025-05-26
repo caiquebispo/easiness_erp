@@ -20,7 +20,7 @@ class Store extends Controller
 
         try {
 
-            $profile = $this->profileService->store(new ProfileDto(...$request->all()));
+            $profile = $this->profileService->store(ProfileDto::make(...$request->all()));
 
             return response()->json([
                 'success' => true,
@@ -28,7 +28,7 @@ class Store extends Controller
                 'data' => $profile
             ],200);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return response()->json([
                 'success' => false,

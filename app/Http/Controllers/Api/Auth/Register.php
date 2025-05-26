@@ -19,7 +19,7 @@ class Register extends Controller
     {
         try {
 
-            $response = $this->userService->store(new UserDto(...$request->validated()));
+            $response = $this->userService->store(UserDto::make(...$request->validated()));
 
             return response()->json([
                 'success' => true,
@@ -27,7 +27,7 @@ class Register extends Controller
                 'data' => $response
             ],200);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return response()->json([
                 'success' => false,

@@ -26,7 +26,7 @@ class Show extends Controller
                 'data' => $profile
             ], 200);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return response()->json([
                 'success'=> false,

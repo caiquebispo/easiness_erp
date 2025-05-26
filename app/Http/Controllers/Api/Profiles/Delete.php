@@ -26,7 +26,7 @@ class Delete extends Controller
                 'data' => []
             ], 200);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return  response()->json([
                 'success' => false,

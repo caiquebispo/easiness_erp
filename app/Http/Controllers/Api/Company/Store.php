@@ -21,14 +21,14 @@ class Store extends Controller
 
         try {
 
-            $company = $this->companyService->store(new CompanyDto(...$request->all()));
+            $company = $this->companyService->store(CompanyDto::make(...$request->all()));
 
             return response()->json([
                 'success' => true,
                 'message' => 'Successfully Company created',
                 'data' => $company
             ],Response::HTTP_CREATED);
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return response()->json([
                 'success' => false,

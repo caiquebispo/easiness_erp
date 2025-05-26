@@ -13,18 +13,19 @@ final class UserDto
         protected ?string $company_id = null,
     )
     {}
+    public static function make(...$params): UserDto
+    {
+        return new self(...$params);
+    }
     public function withPassword(): UserDto
     {
        $this->password = Hash::make($this->password);
         return  $this;
     }
-    public function withArray(): array
+    public function toArray(): array
     {
-        return [
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => $this->password,
-            'company_id' => $this->company_id,
-        ];
+        $this->withPassword();
+
+        return get_object_vars($this);
     }
 }

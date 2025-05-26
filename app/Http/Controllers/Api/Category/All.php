@@ -1,34 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Api\Permissions;
+namespace App\Http\Controllers\Api\Category;
 
-use App\DTOs\PermissionsDto;
 use App\Http\Controllers\Controller;
-use App\Services\PermissionsService;
+use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class Store extends Controller
+class All extends Controller
 {
     public function __construct(
-        protected PermissionsService $permissionsService
+        protected CategoryService $categoryService
     )
     {}
 
     public function __invoke(Request $request): JsonResponse
     {
         try {
-
-            $permission = $this->permissionsService->store(PermissionsDto::make(...$request->all()));
+            $categories = $this->categoryService->all();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Permissions Created Successfully',
-                'data' => $permission
+                'message' => 'Categories retrieved successfully',
+                'data' => $categories
             ], 200);
 
-        }catch (\Throwable $e){
-
+        } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),

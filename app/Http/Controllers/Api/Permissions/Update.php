@@ -19,7 +19,7 @@ class Update extends Controller
     {
         try {
 
-            $permission = $this->permissionsService->update($id, new PermissionsDto(...$request->all()));
+            $permission = $this->permissionsService->update($id,PermissionsDto::make(...$request->all()));
 
             return  response()->json([
                 'success' => true,
@@ -27,7 +27,7 @@ class Update extends Controller
                 'data' => $permission
             ],200);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             return  response()->json([
                 'success' => false,

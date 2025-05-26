@@ -1,37 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\Api\Permissions;
+namespace App\Http\Controllers\Api\Category;
 
 use App\Http\Controllers\Controller;
-use App\Services\PermissionsService;
+use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class Delete extends Controller
 {
     public function __construct(
-        protected  PermissionsService $permissionsService
-    ){}
-
+        protected CategoryService $categoryService
+    )
+    {}
     public function __invoke(int $id): JsonResponse
     {
         try {
+            $this->categoryService->delete($id);
 
-            $this->permissionsService->delete($id);
-
-            return  response()->json([
+            return response()->json([
                 'success' => true,
-                'message' => 'Permission deleted Successfully',
+                'message' => 'Category deleted successfully',
                 'data' => []
-            ],200);
+            ], 200);
 
-        }catch (\Throwable $e){
-
-            return  response()->json([
+        } catch (\Throwable $e) {
+            return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
                 'data' => []
-            ],$e->getCode());
+            ], $e->getCode());
         }
     }
 }

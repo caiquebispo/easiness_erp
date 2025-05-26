@@ -15,18 +15,12 @@ class PermissionsDto
         protected ?bool $status = true
     )
     {}
-
-    public function withArray(): array
+    public static function make(...$params): self
     {
-        return [
-            'name' => $this->name,
-            'label' => $this->label,
-            'url' => $this->url,
-            'menu_name' => $this->menu_name,
-            'icon_class' => $this->icon_class,
-            'order_list' => $this->order_list,
-            'has_modules' => $this->has_modules,
-            'status' => $this->status
-        ];
+        return new self(...$params);
+    }
+    public function toArray(): array
+    {
+        return get_object_vars($this);
     }
 }

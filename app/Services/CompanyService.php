@@ -14,9 +14,9 @@ class CompanyService
     public function store(CompanyDto $companyDTO): Company|\Exception
     {
         try {
-            return  Company::create($companyDTO->withArray());
+            return  Company::create($companyDTO->toArray());
 
-        }catch(\Exception $e){
+        }catch(\Throwable $e){
 
             throw new Exception('Internal error, please verify with our teams for more details: '.$e->getMessage(),500);
         }
@@ -25,7 +25,7 @@ class CompanyService
     {
         try {
             return Company::findOrFail($company_id);
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
             throw new \Exception('Company Notfound',404);
         }
     }
@@ -36,7 +36,7 @@ class CompanyService
 
         try {
             return $company->users()->toggle($user);
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
             throw new \Exception('Internal error in method toggle',500);
         }
     }

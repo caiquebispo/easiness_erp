@@ -27,7 +27,7 @@ class Logout extends Controller implements HasMiddleware
 
             return $this->authService->logout();
 
-        }catch(\Exception $e){
+        }catch(\Throwable $e){
 
             return $e->getMessage();
         }

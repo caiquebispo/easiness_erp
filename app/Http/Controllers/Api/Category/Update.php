@@ -1,34 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Api\Profiles;
+namespace App\Http\Controllers\Api\Category;
 
-use App\DTOs\ProfileDto;
 use App\Http\Controllers\Controller;
-use App\Services\ProfileService;
+use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class Update extends Controller
 {
     public function __construct(
-        protected ProfileService $profileService
+        protected CategoryService $categoryService
     )
     {}
 
-    public function __invoke(Request $request, int $id): JsonResponse
+    public function __invoke(int $id, Request $request): JsonResponse
     {
         try {
-
-            $profile = $this->profileService->update($id, ProfileDto::make(...$request->all()));
+            $category = $this->categoryService->update($id, CategoryDto::make(...$request->all()));
 
             return response()->json([
                 'success' => true,
-                'message' => 'Profile updated successfully',
-                'data' => $profile
+                'message' => 'Category updated successfully',
+                'data' => $category
             ], 200);
 
-        }catch (\Throwable $e){
-
+        } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),

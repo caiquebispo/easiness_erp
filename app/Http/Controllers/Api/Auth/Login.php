@@ -13,7 +13,7 @@ class Login extends Controller
         protected AuthService $authService
     )
     {}
-    public function __invoke(LoginRequest $request)
+    public function __invoke(LoginRequest $request): JsonResponse
     {
         return $this->authService->attempt(...$request->validated());
     }

@@ -21,9 +21,9 @@ class PermissionsService
    {
        try {
 
-           return Permission::create($permissionsDto->withArray());
+           return Permission::create($permissionsDto->toArray());
 
-       }catch (\Exception $e){
+       }catch (\Throwable $e){
 
            throw new Exception('Internal error in create an new permission, please verify with our support for more details', 500);
        }
@@ -34,7 +34,7 @@ class PermissionsService
 
            return Permission::findOrFail($permission_id);
 
-       }catch (\Exception $e){
+       }catch (\Throwable $e){
 
            throw new Exception('Internal error in retrieving an permission, please verify with our support for more details', 500);
        }
@@ -45,10 +45,10 @@ class PermissionsService
 
        try {
 
-          $permission->update($permissionsDto->withArray());
+          $permission->update($permissionsDto->toArray());
           return $permission;
 
-       }catch (\Exception $e){
+       }catch (\Throwable $e){
 
            throw new Exception('Internal error in update an permission, please verify with our support for more details', 500);
        }
@@ -61,7 +61,7 @@ class PermissionsService
 
            return $permission->delete();
 
-       }catch (\Exception $e){
+       }catch (\Throwable $e){
 
            throw new Exception('Internal error in delete an permission, please verify with our support for more details', 500);
        }
@@ -75,7 +75,7 @@ class PermissionsService
 
             return $permission->profiles()->toggle($profile);
 
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
 
             throw new \Exception('Internal error in method toggle:',500);
         }

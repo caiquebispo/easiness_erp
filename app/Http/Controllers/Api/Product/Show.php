@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
-use App\Services\UserService;
+use App\Services\ProductService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class All extends Controller
+class Show extends Controller
 {
     public function __construct(
-        protected UserService $userService
+        protected ProductService $productService
     )
     {}
-    public function __invoke(Request $request)
+
+    public function __invoke(int $id): JsonResponse
     {
         try {
-
-            $response = $this->userService->all();
+            $product = $this->productService->show($id);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Users retrieved successfully',
-                'data' => $response
+                'message' => 'Product retrieved successfully',
+                'data' => $product
             ], 200);
 
         } catch (\Throwable $e) {
