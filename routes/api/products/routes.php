@@ -1,7 +1,6 @@
 <?php
 
-
-use App\Http\Controllers\Api\Product\{All, Show, Store, ToggleProfileUser, Update, Delete};
+use App\Http\Controllers\Api\Product\{All, Show, Store,Update, Delete};
 
 Route::get('/products', [All::class, '__invoke']);
 Route::get('/products/{id}', [Show::class, '__invoke']);

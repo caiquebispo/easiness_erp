@@ -17,7 +17,7 @@ class Show extends Controller
     public function __invoke(int $id): JsonResponse
     {
         try {
-            $product = $this->productService->show($id);
+            $product = $this->productService->get($id);
 
             return response()->json([
                 'success' => true,
