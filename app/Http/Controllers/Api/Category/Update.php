@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Category;
 
+use App\DTOs\CategoryDto;
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
@@ -14,9 +15,10 @@ class Update extends Controller
     )
     {}
 
-    public function __invoke(int $id, Request $request): JsonResponse
+    public function __invoke(Request $request, int $id)
     {
         try {
+
             $category = $this->categoryService->update($id, CategoryDto::make(...$request->all()));
 
             return response()->json([

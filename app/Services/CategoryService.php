@@ -13,7 +13,7 @@ class CategoryService
         try {
             return Category::create($categoryDto->toArray());
         } catch (\Throwable $e) {
-            throw new \Exception('Failed to create category: ', 500);
+            throw new \Exception('Failed to create category'.$e->getMessage(), 500);
         }
     }
     public function all(): Collection|\Exception
@@ -21,7 +21,7 @@ class CategoryService
         try {
             return Category::all();
         } catch (\Throwable $e) {
-            throw new \Exception('Failed to retrieve categories: ', 500);
+            throw new \Exception('Failed to retrieve categories', 500);
         }
     }
     public function get(int $id): Category|\Exception
@@ -29,7 +29,7 @@ class CategoryService
         try {
             return Category::findOrFail($id);
         } catch (\Throwable $e) {
-            throw new \Exception('Category not found: ', 404);
+            throw new \Exception('Category not found', 404);
         }
     }
     public function update(int $id, CategoryDto $categoryDto): Category|\Exception
@@ -40,7 +40,7 @@ class CategoryService
             $category->update($categoryDto->toArray());
             return $category;
         } catch (\Throwable $e) {
-            throw new \Exception('Failed to update category: ', 500);
+            throw new \Exception('Failed to update category', 500);
         }
     }
     public function delete(int $id): bool|\Exception
@@ -50,7 +50,7 @@ class CategoryService
         try {
             return $category->delete();
         } catch (\Throwable $e) {
-            throw new \Exception('Failed to delete category: ', 500);
+            throw new \Exception('Failed to delete category', 500);
         }
     }
 }
