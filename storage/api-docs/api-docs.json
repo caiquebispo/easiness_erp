@@ -1,0 +1,301 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API ERP",
+        "description": " This is a simple API for an ERP system, built with Laravel and OpenAPI documentation.",
+        "contact": {
+            "email": "caiquebispodanet86@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://easiness_erp.test",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Authenticate"
+                ],
+                "summary": "Store an new user",
+                "operationId": "18a4a0efe801361a55a5cf737230589d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password",
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "Password Confirmation",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "name": "User Teste",
+                                "email": "userteste@email.com",
+                                "password": "user_teste_pass",
+                                "password_confirmation": "user_teste_pass"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "meta": {
+                                                    "code": 201,
+                                                    "status": "success",
+                                                    "message": "User created successfully!"
+                                                },
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "User Teste",
+                                                    "email": "email@email.com",
+                                                    "updated_at": "2024-07-28T21:49:06.000000Z",
+                                                    "created_at": "2024-07-28T21:49:06.000000Z"
+                                                },
+                                                "access_token": {
+                                                    "token": "2|yubvLPyxjWvMaSRZ3bM1A60llv4r0En9DtVlq3gw74a22b65",
+                                                    "type": "Bearer"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "Validation errors",
+                                                "data": {
+                                                    "name": [
+                                                        "The name field is required."
+                                                    ],
+                                                    "email": [
+                                                        "The email field is required."
+                                                    ],
+                                                    "password": [
+                                                        "The password field is required."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Authenticate"
+                ],
+                "summary": "Login User",
+                "operationId": "4a14555f1b7e913ec761a64b3712a34d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "email": "userteste@email.com",
+                                "password": "user_teste_pass"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Login success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": true,
+                                                "statusCode": 202,
+                                                "message": "User has been logged successfully.",
+                                                "data": {
+                                                    "id": 1,
+                                                    "name": "User Teste",
+                                                    "email": "email@email.com",
+                                                    "created_at": "2024-07-27T15:39:28.000000Z",
+                                                    "updated_at": "2024-07-28T21:49:06.000000Z",
+                                                    "bearer_token": "17|QJmAJPmZPxxcAFCp8XgfgQf6GzEghBvTEgkgEHrAf7040d89"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "meta": {
+                                                    "code": 401,
+                                                    "status": "fails",
+                                                    "message": "The provided credentials are incorrect.!"
+                                                },
+                                                "user": [],
+                                                "access_token": {
+                                                    "token": "",
+                                                    "type": "Bearer"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Authenticate"
+                ],
+                "summary": "Logout User",
+                "operationId": "80622f2f7441e1a7e3762a9e36cda938",
+                "responses": {
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "message": "Unauthenticated."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": "Successfully logged out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "meta": {
+                                                    "code": 202,
+                                                    "status": "success",
+                                                    "message": "Successfully logged out"
+                                                },
+                                                "data": []
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authenticate",
+            "description": "Authenticate"
+        }
+    ]
+}
